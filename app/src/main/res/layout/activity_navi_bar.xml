@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rule_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FC6621"
+        android:layout_margin="10dp">
+        <ImageButton
+            android:id="@+id/posts_for_pt1"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="#FC6621"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_w_xuexi"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/gotham"
+            android:text="Postgraduate Studies"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/sms_relay_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#2980b9">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="In-class Courses"
+            android:fontFamily="@font/gotham"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/textView"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_notes"
+
+            android:layout_alignBottom="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="-20dp"
+            android:id="@+id/imageView"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/email_relay_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#27ae60">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="-20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_test"
+
+           />
+        <TextView
+            android:id="@+id/text_email_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="Language Tests"
+            android:fontFamily="@font/gotham"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rule_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FFD700"
+        android:layout_margin="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="-20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_work"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/gotham"
+            android:text="Research and Internship"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
