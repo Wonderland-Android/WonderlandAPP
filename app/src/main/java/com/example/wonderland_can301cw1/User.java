@@ -10,6 +10,14 @@ import java.util.List;
 public class User extends LitePalSupport {
     private int id;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Column(unique = true,nullable = false)
     private String name;
 

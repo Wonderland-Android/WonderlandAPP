@@ -128,8 +128,9 @@ public class PostDetailActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 String comment = commentDialog.getContent();
                                 Comment newComment = new Comment();
-                                newComment.setUser(LitePal.find(User.class,6));
-                                newComment.setPost(LitePal.find(Post.class,3));
+                                CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+                                newComment.setUser(LitePal.find(User.class,currentUser.getUser_id()));
+                                newComment.setPost(post);
                                 newComment.setCreate_time(new Date());
                                 newComment.setContent(comment);
                                 newComment.save();
