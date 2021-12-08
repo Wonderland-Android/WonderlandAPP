@@ -16,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -38,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
 
-
         fill_username = (EditText) findViewById(R.id.fill_username);
         fill_password = (EditText) findViewById(R.id.fill_password);
         sign_up = (Button) findViewById(R.id.sign_up);
@@ -56,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
         });
         }
 
-
-
-
-
     public class MyButton implements View.OnClickListener{
         @Override
         public void onClick(View view){
@@ -67,15 +66,38 @@ public class MainActivity extends AppCompatActivity {
             String password =fill_password.getText().toString().trim();
             switch (view.getId()) {
                 case R.id.sign_in:
-                    System.out.println("-----------------------------");
+                    // Judge whether the username or password is empty
+                    // Empty spaces
                     if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
                         Toast.makeText(MainActivity.this,"Password or username cannot be empty",Toast.LENGTH_SHORT).show();
                     }
+                    // No empty spaces
                     else {
+                        List<User> users = LitePal
+                                .where("name = ?", username).find(User.class);
+                        // Judge whether the account is registered
+                        // Not registered
+                        if(users.isEmpty()){
+                            Toast.makeText(MainActivity.this, "Account not registered!", Toast.LENGTH_SHORT).show();
+                        }
+                        // Account is registered
+                        else{
 
-                        Toast.makeText(MainActivity.this,"Log in successfully",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, NaviBarActivity.class);
-                        startActivity(intent);
+                            // Judge whether the password is right
+                            // Password or username is not correct
+                            if(!users.get(0).getPassword().equals(password)||
+                                    !users.get(0).getName().equals(username)){
+                                Toast.makeText(MainActivity.this, "Username or password is incorrect!", Toast.LENGTH_SHORT).show();
+
+                            }
+                            // Password and username are correct
+                            else{
+                                Intent intent = new Intent(MainActivity.this,NaviBarActivity.class);
+                                startActivity(intent);
+                                break;
+                            }
+
+                        }
                         }
                     break;
                 case R.id.sign_up:

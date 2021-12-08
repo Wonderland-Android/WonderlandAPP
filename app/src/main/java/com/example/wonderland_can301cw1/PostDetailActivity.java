@@ -27,7 +27,7 @@ public class PostDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
-        Post post = LitePal.find(Post.class,3);
+        Post post = LitePal.find(Post.class,1);
         User user = post.getUser();
         postdetail_title = (TextView) findViewById(R.id.postdetail_title);
         postdetail_content = (TextView) findViewById(R.id.postdetail_content);

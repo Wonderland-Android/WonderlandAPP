@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wonderland_can301cw1">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -11,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wonderland_CAN301CW1">
         <activity
+            android:name=".ViewPostsActivity"
+            android:exported="true" />
+        <activity
             android:name=".ManageDatabase"
             android:exported="true" />
         <activity
@@ -18,9 +24,6 @@
             android:exported="true" />
         <activity
             android:name=".MakeNewPostActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ViewPostsActivity"
             android:exported="false" />
         <activity
             android:name=".NaviBarActivity"

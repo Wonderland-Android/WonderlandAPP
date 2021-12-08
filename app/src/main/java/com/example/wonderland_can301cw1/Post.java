@@ -37,6 +37,8 @@ public class Post extends LitePalSupport {
         this.user = user;
     }
 
+    public int getId(){ return id; }
+
     public List<Comment> getComments() {
         return LitePal.where("post_id = ?", String.valueOf(id)).find(Comment.class);
     }

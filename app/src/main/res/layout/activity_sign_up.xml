@@ -108,7 +108,7 @@
                 android:drawablePadding="16dp"
                 android:drawableEnd="@drawable/ic_lock_white_24dp"
                 android:fontFamily="@font/calibri"
-                android:hint="Define your password"
+                android:hint="Define your password (Between 6 and 16 characters)"
 
                 android:maxLines="1"
                 android:textColor="@android:color/white"

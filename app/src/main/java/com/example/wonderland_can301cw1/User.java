@@ -15,7 +15,7 @@ public class User extends LitePalSupport {
 
     private String password;
     private String email;
-    private Byte[] image;
+    private int image;
     @Column(defaultValue = "No Description")
     private String bio;
 
@@ -38,7 +38,7 @@ public class User extends LitePalSupport {
         this.comments = comments;
     }
 
-
+    public void setId(){this.id=id;}
 
     public String getBio() {
         return bio;
@@ -73,11 +73,11 @@ public class User extends LitePalSupport {
         this.email = email;
     }
 
-    public Byte[] getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(Byte[] image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
