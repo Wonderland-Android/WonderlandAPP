@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.guolindev.glance:glance:1.1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/6c0dcf58fe5f3e463f915323e57dc07d/transformed/jetified-glance-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6c0dcf58fe5f3e463f915323e57dc07d/transformed/jetified-glance-1.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6c0dcf58fe5f3e463f915323e57dc07d/transformed/jetified-glance-1.1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
