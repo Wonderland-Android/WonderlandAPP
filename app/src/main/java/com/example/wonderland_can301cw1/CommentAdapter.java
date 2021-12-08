@@ -10,6 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zhuang.likeviewlibrary.LikeView;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
@@ -20,6 +23,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         ImageView comment_user_image;
         TextView comment_user_name;
         TextView comment_content;
+        LikeView comment_likes;
+        TextView comment_date;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -27,6 +32,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             comment_user_image = (ImageView) view.findViewById(R.id.comment_user_image);
             comment_user_name = (TextView) view.findViewById(R.id.comment_user_name);
             comment_content = (TextView) view.findViewById(R.id.comment_content);
+            comment_likes = (LikeView) view.findViewById(R.id.comment_likeView);
+            comment_date = (TextView) view.findViewById(R.id.comment_date);
         }
 
     }
@@ -40,8 +47,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         Comment comment = mCommentList.get(position);
         holder.comment_content.setText(comment.getContent());
         User user = comment.getUser();
-        holder.comment_user_image.setImageResource(R.drawable.face2);
+        holder.comment_user_image.setImageResource(user.getImage());
         holder.comment_user_name.setText(user.getName());
+        holder.comment_likes.setLikeCount(comment.getLikes());
+        TimeCountUtil timeCountUtil = new TimeCountUtil();
+        holder.comment_date.setText(timeCountUtil.timeCount(comment.getCreate_time()));
     }
 
     @NonNull
@@ -52,7 +62,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.commentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = holder.getAdapterPosition();
+                int position = holder.getAbsoluteAdapterPosition();
                 Comment comment = mCommentList.get(position);
                 Toast.makeText(v.getContext(),"you clicked view "+comment.getContent(),Toast.LENGTH_SHORT).show();
             }
@@ -65,6 +75,40 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 Toast.makeText(v.getContext(),"you clicked image "+comment.getUser().getName(),Toast.LENGTH_SHORT).show();
             }
         });
+        holder.comment_likes.setOnLikeListeners(new LikeView.OnLikeListeners() {
+            @Override
+            public void like(boolean isCancel) {
+                int position = holder.getAbsoluteAdapterPosition();
+                Comment comment = mCommentList.get(position);
+                if(isCancel){
+                    int likes = comment.getLikes();
+                    comment.setLikes(likes-1);
+                    comment.update(comment.getId());
+                    holder.comment_likes.setLikeCount(likes-1);
+                }else{
+                    int likes = comment.getLikes();
+                    comment.setLikes(likes+1);
+                    comment.update(comment.getId());
+                    holder.comment_likes.setLikeCount(likes+1);
+                }
+            }
+        });
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeCountUtil timeCountUtil = new TimeCountUtil();
+        holder.comment_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                Comment comment = mCommentList.get(position);
+                String currentString = holder.comment_date.getText().toString();
+                if(currentString.substring(currentString.length()-3).equals("ago")){
+                    holder.comment_date.setText(df.format(comment.getCreate_time()));
+                }else{
+                    holder.comment_date.setText(timeCountUtil.timeCount(comment.getCreate_time()));
+                }
+            }
+        });
+
         return holder;
     }
 

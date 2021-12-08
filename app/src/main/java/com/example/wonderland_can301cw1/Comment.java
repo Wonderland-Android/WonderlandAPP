@@ -9,11 +9,8 @@ public class Comment extends LitePalSupport {
     private int id;
     private int user_id;
     private int post_id;
-
     private Date create_time;
-
     private String content;
-
     private int likes;
 
     private User user;
@@ -57,5 +54,13 @@ public class Comment extends LitePalSupport {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

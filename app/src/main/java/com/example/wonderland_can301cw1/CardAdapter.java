@@ -72,6 +72,12 @@ public class CardAdapter extends ArrayAdapter<Card> {
                 context.startActivity(intent);
             }
         });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PostDetailActivity.actionStart(context,idInfo);
+            }
+        });
         viewHolder.cardUsername.setText(card.getUsername());
         viewHolder.cardTitle.setText(card.getTitle());
         viewHolder.cardLikeNum.setText(card.getLikeNum()+"人赞过");

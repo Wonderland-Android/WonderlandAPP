@@ -7,6 +7,11 @@
     <item name="cornerSize">50%</item>
   </style>
 
+  <!-- 无标题无背景对话框主题 -->
+  <style name="MyNoFrame_Dialog" parent="android:Theme.Dialog">
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
 
 
 
