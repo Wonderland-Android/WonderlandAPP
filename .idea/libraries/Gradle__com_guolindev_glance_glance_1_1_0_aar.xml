@@ -5,7 +5,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6c0dcf58fe5f3e463f915323e57dc07d/transformed/jetified-glance-1.1.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6c0dcf58fe5f3e463f915323e57dc07d/transformed/jetified-glance-1.1.0/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.guolindev.glance/glance/1.1.0/cc48cc7e8960b492ba448a27f2969494d5006fbf/glance-1.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.guolindev.glance/glance/1.1.0/c017d7d9dda0ee8fc74dbe52bdf4b1eeda209680/glance-1.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

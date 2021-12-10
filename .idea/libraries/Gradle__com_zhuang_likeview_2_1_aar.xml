@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.zhuang:likeview:2.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1c92751012098154a707df2f8d5a8723/transformed/jetified-likeview-2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1c92751012098154a707df2f8d5a8723/transformed/jetified-likeview-2.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1c92751012098154a707df2f8d5a8723/transformed/jetified-likeview-2.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zhuang/likeview/2.1/4ea8af010fbb2f2e429cf56199783d3c06f553a/likeview-2.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zhuang/likeview/2.1/32b640cfb621729e414dcd0aee860bbb84c6dfff/likeview-2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

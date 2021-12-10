@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -32,6 +33,7 @@ import java.util.List;
 
 
 public class ViewPostsActivity extends AppCompatActivity {
+    private static final int LAUNCH_NEWPOST_ACTIVITY = 0;
     private List<Card> cardList = new ArrayList<>();
     private SearchView searchView;
     private boolean sortMethod = true;
@@ -54,6 +56,25 @@ public class ViewPostsActivity extends AppCompatActivity {
 
 
     private void initCards() {
+        cardList.clear();
+        List<Post> postList;
+        if (sortMethod) {
+            postList = LitePal.order("create_time").find(Post.class);
+        } else {
+            postList = LitePal.order("likes").find(Post.class);
+        }
+        System.out.println("--------");
+        if (postList.size() != 0) {
+            System.out.println(postList.get(0).getId());
+            for (int i = 0; i < postList.size(); i++) {
+                cardList.add(new Card(postList.get(i).getId(), postList.get(i).getUser().getImage(), postList.get(i).getUser().getName(), postList.get(i).getTitle(), postList.get(i).getLikes(), postList.get(i).getCreate_time()));
+            }
+        }else{
+            TextView noContent;
+            noContent = (TextView) findViewById(R.id.no_Content);
+            noContent.setVisibility(View.VISIBLE);
+        }
+    }{
         cardList.clear();
         List<Post> postList;
         if (sortMethod) {
@@ -162,7 +183,20 @@ public class ViewPostsActivity extends AppCompatActivity {
     }
 
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == LAUNCH_NEWPOST_ACTIVITY && resultCode == Activity.RESULT_OK)
+        {
+            Post newPost = new Post();
+            String[] returnIntent = intent.getStringArrayExtra("Post_Return");
 
+            CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+            newPost.setUser(LitePal.find(User.class,currentUser.getUser_id()));
+            newPost.setTitle(returnIntent[0]);
+            newPost.setContent(returnIntent[1]);
+            newPost.save();
+        }
+    }
 
 
 
