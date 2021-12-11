@@ -30,6 +30,7 @@ public class MakeNewPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_new_post);
+        getSupportActionBar().hide();
 
         EditText titleText =(EditText) findViewById(R.id.Post_Title);
         EditText contentText = (EditText)findViewById(R.id.Post_Content);

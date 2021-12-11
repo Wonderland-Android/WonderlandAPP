@@ -4,4 +4,11 @@
     <string name="board2">Fuck Caballo</string>
     <string name="board3">Ethan is right</string>
     <string name="account">Account</string>
+    <string name="title_nav">Home</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_settings">settings</string>
+    <string name="change_name">Change user name</string>
+    <string name="posts">Posts</string>
+
+
 </resources>

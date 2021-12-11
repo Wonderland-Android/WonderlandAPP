@@ -37,7 +37,7 @@ public class ViewPostsActivity extends AppCompatActivity {
     private List<Card> cardList = new ArrayList<>();
     private SearchView searchView;
     private boolean sortMethod = true;
-    private List<String> searchContent = new ArrayList<>();
+    private String searchContentCopy = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,48 +45,48 @@ public class ViewPostsActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_view_posts);
+        getSupportActionBar().hide();
 
-        initCards();
+        initCards("");
         initSearchView();
         initSort();
         initListView();
         initNewPostButton();
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        refreshListView();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        refreshListView();
+    }
 
 
-    private void initCards() {
+
+    private void initCards(String searchContent) {
         cardList.clear();
         List<Post> postList;
-
+        TextView noContent;
+        noContent = (TextView) findViewById(R.id.no_Content);
         if (sortMethod) {
-            postList = LitePal.order("create_time").find(Post.class);
+            postList = LitePal.where("title like ?","%"+searchContent+"%").order("create_time").find(Post.class);
         } else {
-            postList = LitePal.order("likes desc").find(Post.class);
+            postList = LitePal.where("title like ?","%"+searchContent+"%").order("likes desc").find(Post.class);
         }
         System.out.println("--------");
         if (postList.size() != 0) {
+            noContent.setVisibility(View.GONE);
             System.out.println(postList.get(0).getId());
             for (int i = 0; i < postList.size(); i++) {
                 cardList.add(new Card(postList.get(i).getId(), postList.get(i).getUser().getImage(), postList.get(i).getUser().getName(), postList.get(i).getTitle(), postList.get(i).getLikes(), postList.get(i).getCreate_time()));
             }
         }else{
-            TextView noContent;
-            noContent = (TextView) findViewById(R.id.no_Content);
             noContent.setVisibility(View.VISIBLE);
-        }
-    }{
-        cardList.clear();
-        List<Post> postList;
-        if (sortMethod) {
-            postList = LitePal.order("create_time").find(Post.class);
-        }else{
-            postList = LitePal.order("likes").find(Post.class);
-        }
-        System.out.println("--------");
-        System.out.println(postList.get(0).getId());
-        for (int i=0;i<postList.size();i++){
-            cardList.add(new Card(postList.get(i).getId(),postList.get(i).getUser().getImage(), postList.get(i).getUser().getName(),postList.get(i).getTitle(), postList.get(i).getLikes(),postList.get(i).getCreate_time()));
         }
     }
 
@@ -99,18 +99,24 @@ public class ViewPostsActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchContent.clear();
-                String[] queryKey = query.trim().split(" ");
-                for(int i=0;i<queryKey.length;i++){
-                    searchContent.add(queryKey[i]);
-                }
-                initCards();
+                searchContentCopy = query;
+                initCards(query);
+                CardAdapter adapter = initListView();
+                adapter.notifyDataSetChanged();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return true;
+
+                if (TextUtils.isEmpty(newText)){
+                    searchContentCopy = "";
+                    initCards("");
+                    CardAdapter adapter = initListView();
+                    adapter.notifyDataSetChanged();
+                    return false;
+                }
+                return false;
             }
         });
     }
@@ -271,7 +277,7 @@ public class ViewPostsActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initCards();
+                        initCards(searchContentCopy);
                         CardAdapter adapter = initListView();
                         adapter.notifyDataSetChanged();
                     }

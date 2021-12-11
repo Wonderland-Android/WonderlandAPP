@@ -22,6 +22,7 @@ public class ManageDatabase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_database);
         Button createDatabase = (Button) findViewById(R.id.create_db);
+        getSupportActionBar().hide();
         createDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +65,7 @@ public class ManageDatabase extends AppCompatActivity {
 //                calvin.setBio("No emo anymore");
 //                calvin.save();
                 Post post1 = new Post();
+                Post post2 = new Post();
 //                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
                 Date date = new Date(System.currentTimeMillis());
 
@@ -72,6 +74,12 @@ public class ManageDatabase extends AppCompatActivity {
                 post1.setContent("As a CMU student, I feel I am the greatest of all time, nobody is better than me.");
                 post1.setUser(caballo);
                 post1.save();
+
+                post2.setCreate_time(date);
+                post2.setTitle("hhhhhhhhhhhhhhh");
+                post2.setContent("gg");
+                post2.setUser(lullaby);
+                post2.save();
                 Comment comment1 = new Comment();
                 comment1.setContent("Fuck Caballo");
                 comment1.setPost(post1);

@@ -36,9 +36,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
 
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 if(currentUser==null){
                                     CurrentUser newUser = new CurrentUser();
                                     newUser.setUser_id(users.get(0).getId());
+                                    newUser.save();
                                 }else{
                                     CurrentUser updateUser = new CurrentUser();
                                     updateUser.setUser_id(users.get(0).getId());

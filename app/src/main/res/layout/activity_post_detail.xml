@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +17,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#9932CC"
+                android:padding="10dp">
 
+                <ImageView
+                    android:id="@+id/top_left"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:id="@+id/top_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Post Details"
+                    android:textSize="19sp"
+                    android:fontFamily="@font/gotham"
+                    android:textColor="#ffffff" />
+
+                <ImageButton
+                    android:id="@+id/top_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_personal_info"
+                    android:backgroundTint="#9932CC"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
 
 <!--            <com.google.android.material.appbar.AppBarLayout-->
 <!--                android:layout_width="match_parent"-->
@@ -48,7 +81,9 @@
                         android:id="@+id/postdetail_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left"
+                        android:gravity="fill"
+
+                        android:fontFamily="@font/gotham"
                         android:textSize="28dp" />
 
                     <LinearLayout
@@ -59,7 +94,8 @@
                         <ImageView
                             android:id="@+id/postdetail_user_image"
                             android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:layout_height="30dp"
+                            app:shapeAppearanceOverlay="@style/CircleImageStyle" />
 
                         <TextView
                             android:id="@+id/postdetail_user_name"

@@ -64,14 +64,14 @@ public class CardAdapter extends ArrayAdapter<Card> {
         viewHolder.cardImage.setImageResource(card.getProfile());
 
         int idInfo = card.getId();
-        viewHolder.cardImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, MakeNewPostActivity.class);
-                intent.putExtra("profile_position",idInfo+"");
-                context.startActivity(intent);
-            }
-        });
+//        viewHolder.cardImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(context, MakeNewPostActivity.class);
+//                intent.putExtra("profile_position",idInfo+"");
+//                context.startActivity(intent);
+//            }
+//        });
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
