@@ -18,19 +18,19 @@
             android:orientation="vertical">
 
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<!--            <com.google.android.material.appbar.AppBarLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-            </com.google.android.material.appbar.AppBarLayout>
+<!--                <androidx.appcompat.widget.Toolbar-->
+<!--                    android:id="@+id/toolbar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="?attr/actionBarSize"-->
+<!--                    android:background="?attr/colorPrimary"-->
+<!--                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+<!--                    app:layout_scrollFlags="scroll|enterAlways|snap"-->
+<!--                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+<!--            </com.google.android.material.appbar.AppBarLayout>-->
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

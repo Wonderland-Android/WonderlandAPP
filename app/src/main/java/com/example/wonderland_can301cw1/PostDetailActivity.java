@@ -41,10 +41,12 @@ public class PostDetailActivity extends AppCompatActivity {
     private CommentAdapter adapter;
     private TextView commentsNumber;
     private Post post;
+    private long post_id;
 
 
 
     public static void actionStart(Context context, long post_id){
+        post_id=post_id;
         Intent intent = new Intent(context, PostDetailActivity.class);
         intent.putExtra("post_id", post_id);
         context.startActivity(intent);
@@ -54,13 +56,13 @@ public class PostDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar !=null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+//        if(actionBar !=null){
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+//        }
         Intent intent = getIntent();
         post = LitePal.find(Post.class,intent.getLongExtra("post_id",3));
         User user = post.getUser();
@@ -129,6 +131,7 @@ public class PostDetailActivity extends AppCompatActivity {
                                 String comment = commentDialog.getContent();
                                 Comment newComment = new Comment();
                                 CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+                                System.out.println(currentUser);
                                 newComment.setUser(LitePal.find(User.class,currentUser.getUser_id()));
                                 newComment.setPost(post);
                                 newComment.setCreate_time(new Date());
@@ -155,7 +158,6 @@ public class PostDetailActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Post post = LitePal.find(Post.class,3);
                         commentList.clear();
                         List<Comment> newCommentList =post.getComments();
                         commentList.addAll(newCommentList);

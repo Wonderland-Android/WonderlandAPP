@@ -92,6 +92,15 @@ public class MainActivity extends AppCompatActivity {
                             }
                             // Password and username are correct
                             else{
+                                CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+                                if(currentUser==null){
+                                    CurrentUser newUser = new CurrentUser();
+                                    newUser.setUser_id(users.get(0).getId());
+                                }else{
+                                    CurrentUser updateUser = new CurrentUser();
+                                    updateUser.setUser_id(users.get(0).getId());
+                                    updateUser.update(currentUser.getId());
+                                }
                                 Intent intent = new Intent(MainActivity.this,NaviBarActivity.class);
                                 startActivity(intent);
                                 break;

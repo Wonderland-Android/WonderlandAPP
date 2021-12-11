@@ -12,7 +12,7 @@ public class Category extends LitePalSupport {
     private List<Post> posts = new ArrayList<Post>();
 
     public List<Post> getPosts() {
-        return LitePal.where("category_id = ?", String.valueOf(id)).find(Post.class);
+        return LitePal.where("category_id = ?", String.valueOf(id)).find(Post.class,true);
     }
 
     public void setPosts(List<Post> posts) {

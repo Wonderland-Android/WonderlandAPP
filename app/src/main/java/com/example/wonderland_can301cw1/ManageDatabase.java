@@ -75,10 +75,12 @@ public class ManageDatabase extends AppCompatActivity {
                 Comment comment1 = new Comment();
                 comment1.setContent("Fuck Caballo");
                 comment1.setPost(post1);
+                comment1.setCreate_time(new Date());
                 comment1.setUser(ethan);
                 comment1.save();
                 Comment comment2 = new Comment();
                 comment2.setContent("Ehtan is right");
+                comment2.setCreate_time(new Date());
                 comment2.setPost(post1);
                 comment2.setUser(lullaby);
                 comment2.save();

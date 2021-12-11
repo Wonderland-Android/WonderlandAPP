@@ -31,7 +31,7 @@ public class User extends LitePalSupport {
     private List<Comment>comments = new ArrayList<Comment>();
 
     public List<Post> getPosts() {
-        return LitePal.where("user_id = ?", String.valueOf(id)).find(Post.class);
+        return LitePal.where("user_id = ?", String.valueOf(id)).find(Post.class,true);
     }
 
     public void setPosts(List<Post> posts) {
@@ -39,7 +39,7 @@ public class User extends LitePalSupport {
     }
 
     public List<Comment> getComments() {
-       return LitePal.where("user_id = ?", String.valueOf(id)).find(Comment.class);
+       return LitePal.where("user_id = ?", String.valueOf(id)).find(Comment.class,true);
     }
 
     public void setComments(List<Comment> comments) {

@@ -9,9 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="280dp"
+        android:layout_alignParentTop="true"
+
+        android:layout_marginTop="50dp"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
@@ -21,11 +21,11 @@
             android:id="@+id/Post_Title"
             android:layout_width="match_parent"
             android:layout_height="77dp"
-            android:drawableEnd="@drawable/ic_username"
-            android:drawablePadding="566dp"
+
+
             android:fontFamily="@font/calibri"
             android:hint="Type your title here"
-            android:inputType="textEmailAddress"
+
             android:maxLines="1"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
@@ -34,18 +34,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/black"
+
             >
 
             <EditText
                 android:id="@+id/Post_Content"
                 android:layout_width="match_parent"
-                android:layout_height="77dp"
-                android:drawableEnd="@drawable/ic_username"
-                android:drawablePadding="566dp"
+                android:layout_height="300dp"
                 android:fontFamily="@font/calibri"
                 android:hint="Type your content here"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
+                android:gravity="start"
+                android:maxLines="10"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 

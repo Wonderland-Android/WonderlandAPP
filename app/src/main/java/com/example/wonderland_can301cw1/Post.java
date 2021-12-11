@@ -40,7 +40,7 @@ public class Post extends LitePalSupport {
     public int getId(){ return id; }
 
     public List<Comment> getComments() {
-        return LitePal.where("post_id = ?", String.valueOf(id)).find(Comment.class);
+        return LitePal.where("post_id = ?", String.valueOf(id)).find(Comment.class,true);
     }
 
     public void setComments(List<Comment> comments) {

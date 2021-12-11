@@ -58,10 +58,11 @@ public class ViewPostsActivity extends AppCompatActivity {
     private void initCards() {
         cardList.clear();
         List<Post> postList;
+
         if (sortMethod) {
             postList = LitePal.order("create_time").find(Post.class);
         } else {
-            postList = LitePal.order("likes").find(Post.class);
+            postList = LitePal.order("likes desc").find(Post.class);
         }
         System.out.println("--------");
         if (postList.size() != 0) {
