@@ -41,12 +41,11 @@
                     android:fontFamily="@font/gotham"
                     android:textColor="#ffffff" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/top_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_personal_info"
-                    android:backgroundTint="#9932CC"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true" />
             </RelativeLayout>
