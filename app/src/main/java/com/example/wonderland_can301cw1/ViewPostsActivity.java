@@ -3,13 +3,16 @@ package com.example.wonderland_can301cw1;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +26,7 @@ import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -38,6 +42,16 @@ public class ViewPostsActivity extends AppCompatActivity {
     private SearchView searchView;
     private boolean sortMethod = true;
     private String searchContentCopy = "";
+    private int categoryCopy = -1;
+
+
+    public static void actionStart1(Context context, int cat_id){
+        cat_id=cat_id;
+        Intent intent = new Intent(context,MakeNewPostActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+        intent.putExtra("cat_id", cat_id);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +59,19 @@ public class ViewPostsActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_view_posts);
-        getSupportActionBar().hide();
+        Intent intent = getIntent();
 
-        initCards("");
+        int data = intent.getIntExtra("cat_id",-1);
+        categoryCopy = data;
+
+        initCards("",data);
         initSearchView();
         initSort();
         initListView();
-        initNewPostButton();
+        initNewPostButton(data);
     }
+
+
 
     @Override
     public void onStart(){
@@ -68,25 +87,27 @@ public class ViewPostsActivity extends AppCompatActivity {
 
 
 
-    private void initCards(String searchContent) {
-        cardList.clear();
-        List<Post> postList;
-        TextView noContent;
-        noContent = (TextView) findViewById(R.id.no_Content);
-        if (sortMethod) {
-            postList = LitePal.where("title like ?","%"+searchContent+"%").order("create_time").find(Post.class);
-        } else {
-            postList = LitePal.where("title like ?","%"+searchContent+"%").order("likes desc").find(Post.class);
-        }
-        System.out.println("--------");
-        if (postList.size() != 0) {
-            noContent.setVisibility(View.GONE);
-            System.out.println(postList.get(0).getId());
-            for (int i = 0; i < postList.size(); i++) {
-                cardList.add(new Card(postList.get(i).getId(), postList.get(i).getUser().getImage(), postList.get(i).getUser().getName(), postList.get(i).getTitle(), postList.get(i).getLikes(), postList.get(i).getCreate_time()));
+    private void initCards(String searchContent, int category) {
+        if (category>-1) {
+            cardList.clear();
+            List<Post> postList;
+            TextView noContent;
+            noContent = (TextView) findViewById(R.id.no_Content);
+            if (sortMethod) {
+                postList = LitePal.where("category_id = ? and title like ?", String.valueOf(category), "%" + searchContent + "%").order("create_time").find(Post.class);
+            } else {
+                postList = LitePal.where("category_id = ? and title like ?", String.valueOf(category), "%" + searchContent + "%").order("likes desc").find(Post.class);
             }
-        }else{
-            noContent.setVisibility(View.VISIBLE);
+            System.out.println("--------");
+            if (postList.size() != 0) {
+                noContent.setVisibility(View.GONE);
+                System.out.println(postList.get(0).getId());
+                for (int i = 0; i < postList.size(); i++) {
+                    cardList.add(new Card(postList.get(i).getId(), postList.get(i).getUser().getImage(), postList.get(i).getUser().getName(), postList.get(i).getTitle(), postList.get(i).getLikes(), postList.get(i).getCreate_time()));
+                }
+            } else {
+                noContent.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -100,7 +121,7 @@ public class ViewPostsActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchContentCopy = query;
-                initCards(query);
+                initCards(query,categoryCopy);
                 CardAdapter adapter = initListView();
                 adapter.notifyDataSetChanged();
                 return false;
@@ -111,7 +132,7 @@ public class ViewPostsActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(newText)){
                     searchContentCopy = "";
-                    initCards("");
+                    initCards("",categoryCopy);
                     CardAdapter adapter = initListView();
                     adapter.notifyDataSetChanged();
                     return false;
@@ -207,16 +228,17 @@ public class ViewPostsActivity extends AppCompatActivity {
 
 
 
-    private void initNewPostButton() {
+
+    private void initNewPostButton(int data) {
         ImageButton makeNewPost = findViewById(R.id.new_post);
         makeNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ViewPostsActivity.this, MakeNewPostActivity.class);
-                startActivity(intent);
+                actionStart1(ViewPostsActivity.this,data);
             }
         });
     }
+
 
 
     private static void hideSoftKeyboard(Activity activity) {
@@ -277,7 +299,7 @@ public class ViewPostsActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initCards(searchContentCopy);
+                        initCards(searchContentCopy,categoryCopy);
                         CardAdapter adapter = initListView();
                         adapter.notifyDataSetChanged();
                     }

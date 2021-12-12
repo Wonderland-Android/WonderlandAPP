@@ -37,6 +37,20 @@ public class ManageDatabase extends AppCompatActivity {
                 String printTxtPath = getApplicationContext().getFilesDir().getAbsolutePath();
                 System.out.println(printTxtPath);
 
+                Category cat1=new Category();
+                cat1.setName("Postgraduate Studies");
+
+                Category cat2=new Category();
+                cat2.setName("In-class Sources");
+                Category cat3=new Category();
+                cat3.setName("Language Tests");
+                Category cat4=new Category();
+                cat4.setName("Research and Internship");
+                cat1.save();
+                cat2.save();
+                cat3.save();
+                cat4.save();
+
 
                 User caballo = new User();
                 caballo.setName("Caballo");
@@ -66,6 +80,8 @@ public class ManageDatabase extends AppCompatActivity {
 //                calvin.save();
                 Post post1 = new Post();
                 Post post2 = new Post();
+                Post post3 = new Post();
+                Post post4 = new Post();
 //                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
                 Date date = new Date(System.currentTimeMillis());
 
@@ -73,13 +89,32 @@ public class ManageDatabase extends AppCompatActivity {
                 post1.setTitle("I am the King");
                 post1.setContent("As a CMU student, I feel I am the greatest of all time, nobody is better than me.");
                 post1.setUser(caballo);
+                post1.setCategory(cat1);
                 post1.save();
 
                 post2.setCreate_time(date);
                 post2.setTitle("hhhhhhhhhhhhhhh");
                 post2.setContent("gg");
                 post2.setUser(lullaby);
+                post2.setCategory(cat2);
                 post2.save();
+
+
+                post3.setCreate_time(date);
+                post3.setTitle("No emo");
+                post3.setContent("Do not emo,offers are coming");
+                post3.setUser(caballo);
+                post3.setCategory(cat3);
+                post3.save();
+
+                post4.setCreate_time(date);
+                post4.setTitle("Give me offer");
+                post4.setContent("plzplzplzplzplzplzplzplz");
+                post4.setUser(caballo);
+                post4.setCategory(cat1);
+                post4.save();
+
+
                 Comment comment1 = new Comment();
                 comment1.setContent("Fuck Caballo");
                 comment1.setPost(post1);
@@ -115,6 +150,7 @@ public class ManageDatabase extends AppCompatActivity {
                 LitePal.deleteAll(Comment.class);
                 LitePal.deleteAll(Post.class);
                 LitePal.deleteAll(User.class);
+                LitePal.deleteAll(Category.class);
             }
         });
 
