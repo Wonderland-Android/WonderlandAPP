@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
 

@@ -19,7 +19,6 @@ public class NaviBarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navi_bar);
 
         setDefaultFragment();
-        getSupportActionBar().hide();
         btnNavView = findViewById(R.id.bottom_navigation_menu);
 
         btnNavView.setOnNavigationItemSelectedListener(item -> {

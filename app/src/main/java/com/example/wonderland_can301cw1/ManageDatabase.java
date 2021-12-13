@@ -22,7 +22,6 @@ public class ManageDatabase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_database);
         Button createDatabase = (Button) findViewById(R.id.create_db);
-        getSupportActionBar().hide();
         createDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

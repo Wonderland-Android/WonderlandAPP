@@ -3,6 +3,9 @@ package com.example.wonderland_can301cw1;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -13,13 +16,19 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.zhuang.likeviewlibrary.LikeView;
 
 import org.litepal.LitePal;
@@ -42,7 +51,35 @@ public class PostDetailActivity extends AppCompatActivity {
     private TextView commentsNumber;
     private Post post;
     private long post_id;
+    private NestedScrollView nestedScrollView;
+    private SwipeRefreshLayout swipeRefresh;
+    private ImageView nav_head;
+    private TextView nav_name;
+    private TextView nav_mail;
 
+
+    private void initNavi(){
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        if(navView.getHeaderCount()>0){
+            View header = navView.getHeaderView(0);
+            nav_head = header.findViewById(R.id.icon_image);
+            nav_name = header.findViewById(R.id.username);
+            nav_mail = header.findViewById(R.id.mail);
+        }
+        CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+        User naviUser = LitePal.find(User.class,currentUser.getUser_id());
+        nav_head.setImageResource(naviUser.getImage());
+        nav_name.setText(naviUser.getName());
+        nav_mail.setText(naviUser.getEmail());
+        DrawerLayout mDrawerlayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        ImageView personal_menu = (ImageView) findViewById(R.id.top_right);
+        personal_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerlayout.openDrawer(GravityCompat.END);
+            }
+        });
+    }
 
 
     public static void actionStart(Context context, long post_id){
@@ -55,15 +92,14 @@ public class PostDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_post_detail);
-        getSupportActionBar().hide();
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-//        if(actionBar !=null){
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-//        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        initNavi();
+
         Intent intent = getIntent();
         post = LitePal.find(Post.class,intent.getLongExtra("post_id",3));
         User user = post.getUser();
@@ -132,7 +168,6 @@ public class PostDetailActivity extends AppCompatActivity {
                                 String comment = commentDialog.getContent();
                                 Comment newComment = new Comment();
                                 CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
-                                System.out.println(currentUser);
                                 newComment.setUser(LitePal.find(User.class,currentUser.getUser_id()));
                                 newComment.setPost(post);
                                 newComment.setCreate_time(new Date());
@@ -145,6 +180,24 @@ public class PostDetailActivity extends AppCompatActivity {
                         .show();
             }
         });
+
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.design_default_color_primary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshComments();
+            }
+        });
+        nestedScrollView = (NestedScrollView) findViewById(R.id.detail_scrollview);
+        nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                swipeRefresh.setEnabled
+                        (nestedScrollView.getScrollY() == 0);
+            }
+        });
+
     }
 
     private void refreshComments(){
@@ -165,6 +218,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         int commentNum = commentList.size();
                         commentsNumber.setText(" "+commentNum+" comments in total");
                         adapter.notifyDataSetChanged();
+                        swipeRefresh.setRefreshing(false);
                     }
                 });
             }

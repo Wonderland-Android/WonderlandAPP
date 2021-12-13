@@ -1,6 +1,10 @@
 package com.example.wonderland_can301cw1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -29,6 +33,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.navigation.NavigationView;
 
 import org.litepal.LitePal;
 
@@ -42,6 +47,9 @@ public class ViewPostsActivity extends AppCompatActivity {
     private SearchView searchView;
     private boolean sortMethod = true;
     private String searchContentCopy = "";
+    private ImageView nav_head;
+    private TextView nav_name;
+    private TextView nav_mail;
     private int categoryCopy = -1;
 
 
@@ -59,14 +67,20 @@ public class ViewPostsActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_view_posts);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
         Intent intent = getIntent();
 
         int data = intent.getIntExtra("cat_id",-1);
         categoryCopy = data;
-
+        Category category = LitePal.find(Category.class, categoryCopy);
+        TextView title = (TextView)findViewById(R.id.top_title);
+        title.setText(category.getName());
         initCards("",data);
         initSearchView();
         initSort();
+        initNavi();
         initListView();
         initNewPostButton(data);
     }
@@ -162,6 +176,28 @@ public class ViewPostsActivity extends AppCompatActivity {
         });
     }
 
+    private void initNavi(){
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        if(navView.getHeaderCount()>0){
+            View header = navView.getHeaderView(0);
+            nav_head = header.findViewById(R.id.icon_image);
+            nav_name = header.findViewById(R.id.username);
+            nav_mail = header.findViewById(R.id.mail);
+        }
+        CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+        User naviUser = LitePal.find(User.class,currentUser.getUser_id());
+        nav_head.setImageResource(naviUser.getImage());
+        nav_name.setText(naviUser.getName());
+        nav_mail.setText(naviUser.getEmail());
+        DrawerLayout mDrawerlayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        ImageView personal_menu = (ImageView) findViewById(R.id.top_right);
+        personal_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerlayout.openDrawer(GravityCompat.END);
+            }
+        });
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private CardAdapter initListView() {

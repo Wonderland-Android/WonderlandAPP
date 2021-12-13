@@ -1,16 +1,24 @@
 package com.example.wonderland_can301cw1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.litepal.LitePal;
 
@@ -20,13 +28,41 @@ import java.util.List;
 public class MakeNewPostActivity extends AppCompatActivity {
 
     private String[] mPostStrs = new String[2];
+    private ImageView nav_head;
+    private TextView nav_name;
+    private TextView nav_mail;
+
+    private void initNavi(){
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        if(navView.getHeaderCount()>0){
+            View header = navView.getHeaderView(0);
+            nav_head = header.findViewById(R.id.icon_image);
+            nav_name = header.findViewById(R.id.username);
+            nav_mail = header.findViewById(R.id.mail);
+        }
+        CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+        User naviUser = LitePal.find(User.class,currentUser.getUser_id());
+        nav_head.setImageResource(naviUser.getImage());
+        nav_name.setText(naviUser.getName());
+        nav_mail.setText(naviUser.getEmail());
+        DrawerLayout mDrawerlayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        ImageView personal_menu = (ImageView) findViewById(R.id.top_right);
+        personal_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerlayout.openDrawer(GravityCompat.END);
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_make_new_post);
-        getSupportActionBar().hide();
 
+        initNavi();
         Intent intent = getIntent();
         int data = intent.getIntExtra("cat_id",-1);
         List<Category> cats = LitePal

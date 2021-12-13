@@ -47,6 +47,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         Comment comment = mCommentList.get(position);
         holder.comment_content.setText(comment.getContent());
         User user = comment.getUser();
+        System.out.println(user);
         holder.comment_user_image.setImageResource(user.getImage());
         holder.comment_user_name.setText(user.getName());
         holder.comment_likes.setLikeCount(comment.getLikes());
@@ -101,7 +102,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 int position = holder.getAbsoluteAdapterPosition();
                 Comment comment = mCommentList.get(position);
                 String currentString = holder.comment_date.getText().toString();
-                if(currentString.substring(currentString.length()-3).equals("ago")){
+                if(currentString.substring(currentString.length()-3).equals("ago")||currentString.equals("yesterday")){
                     holder.comment_date.setText(df.format(comment.getCreate_time()));
                 }else{
                     holder.comment_date.setText(timeCountUtil.timeCount(comment.getCreate_time()));
