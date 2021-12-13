@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/comment_user_image"
@@ -27,7 +26,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:id="@+id/comment_user_name"/>
+            android:id="@+id/comment_user_name"
+            android:fontFamily="@font/gotham"
+            android:textStyle="italic"
+
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +51,10 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:maxLines="3"
-        android:id="@+id/comment_content"/>
+        android:id="@+id/comment_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/calibri"
+        android:textSize="15sp"/>
 
     <com.zhuang.likeviewlibrary.LikeView
         android:id="@+id/comment_likeView"

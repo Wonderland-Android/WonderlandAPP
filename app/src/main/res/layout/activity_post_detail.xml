@@ -87,16 +87,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/gotham"
-
+                                android:layout_marginStart="5dp"
                                 android:gravity="fill"
-                                android:textSize="28dp" />
+                                android:textSize="20dp" />
+
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <ImageView
+                                <com.google.android.material.imageview.ShapeableImageView
                                     android:id="@+id/postdetail_user_image"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
@@ -106,14 +108,18 @@
                                     android:id="@+id/postdetail_user_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp" />
+                                    android:layout_marginStart="10dp"
+                                    android:fontFamily="@font/gotham"
+
+                                    android:textStyle="italic"/>
 
                                 <TextView
                                     android:id="@+id/postdetail_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
-                                    android:textSize="11sp" />
+                                    android:textSize="11sp"
+                                    />
 
                             </LinearLayout>
 
@@ -127,7 +133,10 @@
                             <TextView
                                 android:id="@+id/postdetail_content"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/calibri"
+                                android:textSize="18sp"/>
 
                             <com.zhuang.likeviewlibrary.LikeView
                                 android:id="@+id/post_likeView"
@@ -151,7 +160,10 @@
                         <TextView
                             android:id="@+id/comments_number"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
 
                     </androidx.cardview.widget.CardView>
 

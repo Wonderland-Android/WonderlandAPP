@@ -108,7 +108,7 @@ public class ViewPostsActivity extends AppCompatActivity {
             TextView noContent;
             noContent = (TextView) findViewById(R.id.no_Content);
             if (sortMethod) {
-                postList = LitePal.where("category_id = ? and title like ?", String.valueOf(category), "%" + searchContent + "%").order("create_time").find(Post.class);
+                postList = LitePal.where("category_id = ? and title like ?", String.valueOf(category), "%" + searchContent + "%").order("create_time desc").find(Post.class);
             } else {
                 postList = LitePal.where("category_id = ? and title like ?", String.valueOf(category), "%" + searchContent + "%").order("likes desc").find(Post.class);
             }
