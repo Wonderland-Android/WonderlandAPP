@@ -54,7 +54,7 @@ public class ManageDatabase extends AppCompatActivity {
                 User caballo = new User();
                 caballo.setName("Caballo");
                 caballo.setPassword("123456");
-                caballo.setBio("I am the Dean of MIT Graduate Admission");
+                caballo.setBio("Year 4 ICS Student");
                 caballo.setImage(R.drawable.face2);
 
                 caballo.save();
@@ -62,21 +62,29 @@ public class ManageDatabase extends AppCompatActivity {
                 User ethan = new User();
                 ethan.setName("Ethan");
                 ethan.setPassword("123456");
-                ethan.setBio("I will juan si caballo");
+                ethan.setBio("Year 4 ICS Student");
                 ethan.setImage(R.drawable.face1);
                 ethan.save();
 
                 User lullaby = new User();
                 lullaby.setName("Lullaby");
                 lullaby.setPassword("123456");
-                lullaby.setBio("Give me offer please");
+                lullaby.setBio("Year 4 ICS Student");
                 lullaby.setImage(R.drawable.face3);
                 lullaby.save();
-//                User calvin = new User();
-//                calvin.setName("Calvin");
-//                calvin.setPassword("123456");
-//                calvin.setBio("No emo anymore");
-//                calvin.save();
+                User calvin = new User();
+                calvin.setName("Calvin");
+                calvin.setPassword("123456");
+                calvin.setBio("Year 4 ICS Student");
+                calvin.setImage(R.drawable.face4);
+                calvin.save();
+                User ssumire=new User();
+                ssumire.setName("Ssumire");
+                ssumire.setPassword("123456");
+                ssumire.setBio("Year 4 ICS Student");
+                ssumire.setImage(R.drawable.face5);
+                ssumire.save();
+
                 Post post1 = new Post();
                 Post post2 = new Post();
                 Post post3 = new Post();
@@ -85,43 +93,47 @@ public class ManageDatabase extends AppCompatActivity {
                 Date date = new Date(System.currentTimeMillis());
 
                 post1.setCreate_time(date);
-                post1.setTitle("I am the King");
-                post1.setContent("As a CMU student, I feel I am the greatest of all time, nobody is better than me.");
+                post1.setTitle("Asking help for postgraduate schools selection");
+                post1.setContent("Here is my background:\n" +
+                        "GPA:3.8/4.0 TOEFL:99(R27 L27 W23 S22) GRE:320(Q:169 V:151)\n"+"" +
+                        "With RA in XJTLU and Internship in Seasun Company\n"+"" +
+                        "Wanna major in CS masters, please help with the school selection ,thx!"
+                );
                 post1.setUser(caballo);
                 post1.setCategory(cat1);
                 post1.save();
 
                 post2.setCreate_time(date);
-                post2.setTitle("hhhhhhhhhhhhhhh");
-                post2.setContent("gg");
+                post2.setTitle("Question for postgraduate materials preparation ");
+                post2.setContent("What is the difference between PS and SOP?");
                 post2.setUser(lullaby);
-                post2.setCategory(cat2);
+                post2.setCategory(cat1);
                 post2.save();
 
 
                 post3.setCreate_time(date);
-                post3.setTitle("No emo");
-                post3.setContent("Do not emo,offers are coming");
-                post3.setUser(caballo);
+                post3.setTitle("Experience on TOEFL tests");
+                post3.setContent("I will share my experience in how to prepare for TOEFL test in this post");
+                post3.setUser(ethan);
                 post3.setCategory(cat3);
                 post3.save();
 
                 post4.setCreate_time(date);
-                post4.setTitle("Give me offer");
-                post4.setContent("plzplzplzplzplzplzplzplz");
-                post4.setUser(caballo);
-                post4.setCategory(cat1);
+                post4.setTitle("Problems for INT305 Lecture 6");
+                post4.setContent("What is the function of max pooling layer in CNN?");
+                post4.setUser(calvin);
+                post4.setCategory(cat2);
                 post4.save();
 
 
                 Comment comment1 = new Comment();
-                comment1.setContent("Fuck Caballo");
+                comment1.setContent("Can you share more details of your background?");
                 comment1.setPost(post1);
                 comment1.setCreate_time(new Date());
-                comment1.setUser(ethan);
+                comment1.setUser(ssumire);
                 comment1.save();
                 Comment comment2 = new Comment();
-                comment2.setContent("Ehtan is right");
+                comment2.setContent("Which countries are you considering?");
                 comment2.setCreate_time(new Date());
                 comment2.setPost(post1);
                 comment2.setUser(lullaby);
