@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zhuang.likeviewlibrary.LikeView;
 
+import org.litepal.LitePal;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
     private List<Comment> mCommentList;
+    private CurrentUser currentUser;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         View commentView;
@@ -51,6 +54,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.comment_user_image.setImageResource(user.getImage());
         holder.comment_user_name.setText(user.getName());
         holder.comment_likes.setLikeCount(comment.getLikes());
+        currentUser = LitePal.findFirst(CurrentUser.class);
+        LikesManage likeRecord = LitePal.where("user_id =  ? and comment_id = ?", Integer.toString(currentUser.getUser_id()), Integer.toString(comment.getId())).findFirst(LikesManage.class);
+        if(likeRecord==null){
+            holder.comment_likes.setHasLike(false);
+        }else{
+            holder.comment_likes.setHasLike(true);
+        }
         TimeCountUtil timeCountUtil = new TimeCountUtil();
         holder.comment_date.setText(timeCountUtil.timeCount(comment.getCreate_time()));
     }
@@ -83,13 +93,22 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 Comment comment = mCommentList.get(position);
                 if(isCancel){
                     int likes = comment.getLikes();
-                    comment.setLikes(likes-1);
+                    if(likes==1){
+                        comment.setToDefault("likes");
+                    }else {
+                        comment.setLikes(likes - 1);
+                    }
                     comment.update(comment.getId());
+                    LitePal.deleteAll(LikesManage.class, "user_id =  ? and comment_id = ?" ,Integer.toString(currentUser.getUser_id()), Long.toString(comment.getId()));
                     holder.comment_likes.setLikeCount(likes-1);
                 }else{
                     int likes = comment.getLikes();
                     comment.setLikes(likes+1);
                     comment.update(comment.getId());
+                    LikesManage likesManage = new LikesManage();
+                    likesManage.setComment_id(comment.getId());
+                    likesManage.setUser_id(currentUser.getUser_id());
+                    likesManage.save();
                     holder.comment_likes.setLikeCount(likes+1);
                 }
             }

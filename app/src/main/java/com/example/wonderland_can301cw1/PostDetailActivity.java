@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.method.ScrollingMovementMethod;
@@ -50,12 +51,13 @@ public class PostDetailActivity extends AppCompatActivity {
     private CommentAdapter adapter;
     private TextView commentsNumber;
     private Post post;
-    private long post_id;
+    private int post_id;
     private NestedScrollView nestedScrollView;
     private SwipeRefreshLayout swipeRefresh;
     private ImageView nav_head;
     private TextView nav_name;
     private TextView nav_mail;
+    private CurrentUser currentUser;
 
 
     private void initNavi(){
@@ -66,7 +68,7 @@ public class PostDetailActivity extends AppCompatActivity {
             nav_name = header.findViewById(R.id.username);
             nav_mail = header.findViewById(R.id.mail);
         }
-        CurrentUser currentUser = LitePal.findFirst(CurrentUser.class);
+        currentUser = LitePal.findFirst(CurrentUser.class);
         User naviUser = LitePal.find(User.class,currentUser.getUser_id());
         nav_head.setImageResource(naviUser.getImage());
         nav_name.setText(naviUser.getName());
@@ -97,6 +99,7 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
+//        toolbar.setBackgroundColor(Color.parseColor("#FC6621"));
         setSupportActionBar(toolbar);
         initNavi();
 
@@ -110,18 +113,33 @@ public class PostDetailActivity extends AppCompatActivity {
         post_likes = (LikeView) findViewById(R.id.post_likeView);
         postDate = (TextView) findViewById(R.id.postdetail_date);
         post_likes.setLikeCount(post.getLikes());
+        LikesManage likeRecord = LitePal.where("user_id =  ? and post_id = ?", Integer.toString(currentUser.getUser_id()), Integer.toString(post.getId())).findFirst(LikesManage.class);
+        if(likeRecord==null){
+            post_likes.setHasLike(false);
+        }else{
+            post_likes.setHasLike(true);
+        }
         post_likes.setOnLikeListeners(new LikeView.OnLikeListeners() {
             @Override
             public void like(boolean isCancel) {
                 if(isCancel){
                     int likes = post.getLikes();
-                    post.setLikes(likes-1);
+                    if(likes==1){
+                        post.setToDefault("likes");
+                    }else {
+                        post.setLikes(likes - 1);
+                    }
+                    LitePal.deleteAll(LikesManage.class, "user_id =  ? and post_id = ?" ,Integer.toString(currentUser.getUser_id()), Long.toString(post.getId()));
                     post.update(post.getId());
                     post_likes.setLikeCount(likes-1);
                 }else{
                     int likes = post.getLikes();
                     post.setLikes(likes+1);
                     post.update(post.getId());
+                    LikesManage likesManage = new LikesManage();
+                    likesManage.setPost_id(post.getId());
+                    likesManage.setUser_id(currentUser.getUser_id());
+                    likesManage.save();
                     post_likes.setLikeCount(likes+1);
                 }
             }

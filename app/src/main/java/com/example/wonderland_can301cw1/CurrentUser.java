@@ -3,19 +3,19 @@ package com.example.wonderland_can301cw1;
 import org.litepal.crud.LitePalSupport;
 
 public class CurrentUser extends LitePalSupport {
-    private long id;
+    private int id;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    private long user_id;
+    private int user_id;
 
-    public long getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
