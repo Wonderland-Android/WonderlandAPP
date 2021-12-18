@@ -80,6 +80,7 @@ public class SignUp extends AppCompatActivity {
                                       newUser.setName(username);
                                       newUser.setPassword(password);
                                       newUser.setEmail(user_email);
+                                      newUser.setImage(R.drawable.ic_pic);
                                       newUser.save();
                                       Toast.makeText(SignUp.this,"Register successfully,now you can log in with the account",Toast.LENGTH_SHORT).show();
 
